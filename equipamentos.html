@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIREP - Equipamentos</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("./background.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #7CC242 0%, #5DA838 100%);
+      border-radius: 12px 12px 0 0;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-small {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .icon-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 0 0 12px 12px;
+      padding: 0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* SEARCH SECTION */
+    .search-section {
+      background: linear-gradient(135deg, #6BA344 0%, #5DA838 100%);
+      padding: 20px 24px;
+      border-bottom: 3px solid #4E8F3A;
+    }
+
+    .search-title {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .search-form {
+      background: #E8E8E8;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select {
+      height: 38px;
+      border: 1.5px solid #666;
+      border-radius: 6px;
+      padding: 0 12px;
+      font-size: 14px;
+      background: white;
+    }
+
+    .period-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .period-group select {
+      flex: 1;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn {
+      height: 42px;
+      padding: 0 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-search {
+      background: linear-gradient(135deg, #7CC242 0%, #5DA838 100%);
+      color: white;
+    }
+
+    .btn-search:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 194, 66, 0.4);
+    }
+
+    .btn-clear {
+      background: #FF5722;
+      color: white;
+    }
+
+    .btn-clear:hover {
+      background: #E64A19;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
+    }
+
+    /* RESULTS SECTION */
+    .results-section {
+      padding: 20px 24px;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .results-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      letter-spacing: 0.3px;
+    }
+
+    .search-box {
+      position: relative;
+      width: 280px;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 38px;
+      padding: 0 40px 0 36px;
+      border: 1.5px solid #999;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+    }
+
+    .mic-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      cursor: pointer;
+    }
+
+    /* TABLE */
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    thead {
+      background: #F5F5F5;
+    }
+
+    th {
+      padding: 12px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 2px solid #ddd;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 12px;
+      font-size: 13px;
+      color: #333;
+      border-bottom: 1px solid #eee;
+    }
+
+    tbody tr:hover {
+      background: #f9f9f9;
+    }
+
+    /* STATUS BADGES */
+    .status-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .status-ativo {
+      background: #7CC242;
+      color: white;
+    }
+
+    .status-substituicao {
+      background: #FFD700;
+      color: #333;
+    }
+
+    .status-realocacao {
+      background: #FF9800;
+      color: white;
+    }
+
+    .status-inativo {
+      background: #FF5722;
+      color: white;
+    }
+
+    /* ACTION ICONS */
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .action-icon {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      color: #333;
+    }
+
+    .action-icon:hover {
+      transform: scale(1.2);
+      color: #5DA838;
+    }
+
+    /* PAGINATION */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 16px 0;
+    }
+
+    .page-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #999;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover {
+      background: #f0f0f0;
+    }
+
+    .page-btn.active {
+      background: #333;
+      color: white;
+      border-color: #333;
+    }
+
+    .filter-icon {
+      cursor: pointer;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <img src="SIREP.png" alt="SIREP" class="logo-small">
+      <h1 class="header-title">EQUIPAMENTOS</h1>
+    </div>
+    <div class="header-icons">
+      <button class="icon-btn">🔔</button>
+      <button class="icon-btn">📤</button>
+      <button class="icon-btn">👤</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+    
+    <!-- SEARCH SECTION -->
+    <div class="search-section">
+      <h2 class="search-title">BUSCAR EQUIPAMENTOS</h2>
+      
+      <div class="search-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Código do Equipamento</label>
+            <input type="text" id="filterCodigo">
+          </div>
+          <div class="form-group">
+            <label>Tipo de Equipamento</label>
+            <input type="text" id="filterTipo">
+          </div>
+          <div class="form-group">
+            <label>Número do projeto</label>
+            <input type="text" id="filterProjeto">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Alimentador</label>
+            <input type="text" id="filterAlimentador">
+          </div>
+          <div class="form-group">
+            <label>Status do Equipamento</label>
+            <input type="text" id="filterStatus">
+          </div>
+          <div class="form-group">
+            <label>Período</label>
+            <div class="period-group">
+              <select id="filterMes">
+                <option>Sep</option>
+                <option>Jan</option>
+                <option>Fev</option>
+                <option>Mar</option>
+                <option>Abr</option>
+                <option>Mai</option>
+                <option>Jun</option>
+                <option>Jul</option>
+                <option>Ago</option>
+                <option>Out</option>
+                <option>Nov</option>
+                <option>Dez</option>
+              </select>
+              <select id="filterAno">
+                <option>2025</option>
+                <option>2024</option>
+                <option>2023</option>
+                <option>2022</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button class="btn btn-search" onclick="buscarEquipamentos()">
+            🔍 BUSCAR
+          </button>
+          <button class="btn btn-clear" onclick="limparFiltros()">
+            🗑️ LIMPAR FILTRO
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS SECTION -->
+    <div class="results-section">
+      <div class="results-header">
+        <h2 class="results-title">RESULTADOS</h2>
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="Search" id="quickSearch" onkeyup="buscaRapida()">
+          <span class="mic-icon">🎤</span>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Código do Equipamento</th>
+              <th>Tipo de Equipamento</th>
+              <th>Alimentador atual</th>
+              <th>Nº do Projeto</th>
+              <th>Status <span class="filter-icon">⚡</span></th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaEquipamentos">
+            <!-- Dados serão inseridos via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="pagination" id="paginacao">
+        <!-- Paginação será inserida via JavaScript -->
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Dados iniciais de exemplo
+    const equipamentosIniciais = [
+      { codigo: 'RL00001', tipo: 'RELIGADOR', alimentador: 'EUN-01P2', projeto: 'B-000000', status: 'ATIVO' },
+      { codigo: 'CH00001', tipo: 'CHAVE SECCIONADORA', alimentador: 'EUN-01P2', projeto: 'B-000000', status: 'SUBSTITUIÇÃO' },
+      { codigo: 'TF00001', tipo: 'TRANSFORMADOR', alimentador: 'EUN-01P2', projeto: 'B-000000', status: 'REALOCAÇÃO' },
+      { codigo: 'TF00002', tipo: 'TRANSFORMADOR', alimentador: 'EUN-01P2', projeto: 'B-000000', status: 'INATIVO' },
+    ];
+
+    // Inicializar localStorage se vazio
+    if (!localStorage.getItem('equipamentos')) {
+      localStorage.setItem('equipamentos', JSON.stringify(equipamentosIniciais));
+    }
+
+    let equipamentosFiltrados = [];
+    let paginaAtual = 1;
+    const itensPorPagina = 7;
+
+    // Carregar equipamentos do localStorage
+    function carregarEquipamentos() {
+      const dados = localStorage.getItem('equipamentos');
+      return dados ? JSON.parse(dados) : [];
+    }
+
+    // Renderizar tabela
+    function renderizarTabela(equipamentos, pagina = 1) {
+      const tbody = document.getElementById('tabelaEquipamentos');
+      const inicio = (pagina - 1) * itensPorPagina;
+      const fim = inicio + itensPorPagina;
+      const equipamentosPagina = equipamentos.slice(inicio, fim);
+
+      tbody.innerHTML = '';
+
+      equipamentosPagina.forEach((eq, index) => {
+        const statusClass = `status-${eq.status.toLowerCase().replace('ç', 'c').replace('ã', 'a')}`;
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${eq.codigo}</td>
+          <td>${eq.tipo}</td>
+          <td>${eq.alimentador}</td>
+          <td>${eq.projeto}</td>
+          <td><span class="status-badge ${statusClass}">${eq.status}</span></td>
+          <td>
+            <div class="actions">
+              <svg class="action-icon" onclick="verDetalhes('${eq.codigo}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4M12 8h.01"/>
+              </svg>
+              <svg class="action-icon" onclick="editarEquipamento('${eq.codigo}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              <svg class="action-icon" onclick="visualizarRelatorio('${eq.codigo}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Preencher linhas vazias
+      for (let i = equipamentosPagina.length; i < itensPorPagina; i++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="actions">
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4M12 8h.01"/>
+              </svg>
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      renderizarPaginacao(equipamentos, pagina);
+    }
+
+    // Renderizar paginação
+    function renderizarPaginacao(equipamentos, paginaAtual) {
+      const totalPaginas = Math.ceil(equipamentos.length / itensPorPagina);
+      const paginacao = document.getElementById('paginacao');
+      
+      paginacao.innerHTML = '';
+
+      for (let i = 1; i <= Math.min(3, totalPaginas); i++) {
+        const btn = document.createElement('button');
+        btn.className = `page-btn ${i === paginaAtual ? 'active' : ''}`;
+        btn.textContent = i;
+        btn.onclick = () => mudarPagina(i);
+        paginacao.appendChild(btn);
+      }
+
+      if (totalPaginas > 5) {
+        paginacao.innerHTML += '<span>...</span>';
+        
+        for (let i = totalPaginas - 1; i <= totalPaginas; i++) {
+          const btn = document.createElement('button');
+          btn.className = `page-btn ${i === paginaAtual ? 'active' : ''}`;
+          btn.textContent = i;
+          btn.onclick = () => mudarPagina(i);
+          paginacao.appendChild(btn);
+        }
+      }
+    }
+
+    function mudarPagina(pagina) {
+      paginaAtual = pagina;
+      renderizarTabela(equipamentosFiltrados, pagina);
+    }
+
+    // Buscar equipamentos com filtros
+    function buscarEquipamentos() {
+      const equipamentos = carregarEquipamentos();
+      const codigo = document.getElementById('filterCodigo').value.toLowerCase();
+      const tipo = document.getElementById('filterTipo').value.toLowerCase();
+      const projeto = document.getElementById('filterProjeto').value.toLowerCase();
+      const alimentador = document.getElementById('filterAlimentador').value.toLowerCase();
+      const status = document.getElementById('filterStatus').value.toLowerCase();
+
+      equipamentosFiltrados = equipamentos.filter(eq => {
+        return (!codigo || eq.codigo.toLowerCase().includes(codigo)) &&
+               (!tipo || eq.tipo.toLowerCase().includes(tipo)) &&
+               (!projeto || eq.projeto.toLowerCase().includes(projeto)) &&
+               (!alimentador || eq.alimentador.toLowerCase().includes(alimentador)) &&
+               (!status || eq.status.toLowerCase().includes(status));
+      });
+
+      paginaAtual = 1;
+      renderizarTabela(equipamentosFiltrados, 1);
+    }
+
+    // Busca rápida
+    function buscaRapida() {
+      const termo = document.getElementById('quickSearch').value.toLowerCase();
+      const equipamentos = carregarEquipamentos();
+
+      equipamentosFiltrados = equipamentos.filter(eq => {
+        return eq.codigo.toLowerCase().includes(termo) ||
+               eq.tipo.toLowerCase().includes(termo) ||
+               eq.alimentador.toLowerCase().includes(termo) ||
+               eq.projeto.toLowerCase().includes(termo) ||
+               eq.status.toLowerCase().includes(termo);
+      });
+
+      paginaAtual = 1;
+      renderizarTabela(equipamentosFiltrados, 1);
+    }
+
+    // Limpar filtros
+    function limparFiltros() {
+      document.getElementById('filterCodigo').value = '';
+      document.getElementById('filterTipo').value = '';
+      document.getElementById('filterProjeto').value = '';
+      document.getElementById('filterAlimentador').value = '';
+      document.getElementById('filterStatus').value = '';
+      document.getElementById('quickSearch').value = '';
+      
+      equipamentosFiltrados = carregarEquipamentos();
+      paginaAtual = 1;
+      renderizarTabela(equipamentosFiltrados, 1);
+    }
+
+    // Funções de ação (placeholder)
+    function verDetalhes(codigo) {
+  window.location.href = `informacoes.html?codigo=${codigo}`;
+}
+
+    function editarEquipamento(codigo) {
+      alert(`Editar equipamento: ${codigo}`);
+    }
+
+    function visualizarRelatorio(codigo) {
+      alert(`Visualizar relatório de: ${codigo}`);
+    }
+
+    // Inicializar ao carregar a página
+    window.onload = () => {
+      equipamentosFiltrados = carregarEquipamentos();
+      renderizarTabela(equipamentosFiltrados, 1);
+    };
+  </script>
+
+</body>
+</html>
