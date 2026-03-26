@@ -3,682 +3,663 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4E8F3A">
   <title>SIREP - Equipamentos</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background-image: url("./background.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    /* HEADER */
-    .header {
-      background: linear-gradient(135deg, #7CC242 0%, #5DA838 100%);
-      border-radius: 12px 12px 0 0;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-small {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .header-title {
-      color: white;
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .header-icons {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .icon-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 22px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .icon-btn:hover {
-      transform: scale(1.1);
-    }
-
-    /* MAIN CONTAINER */
-    .container {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 0 0 12px 12px;
-      padding: 0;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* SEARCH SECTION */
-    .search-section {
-      background: linear-gradient(135deg, #6BA344 0%, #5DA838 100%);
-      padding: 20px 24px;
-      border-bottom: 3px solid #4E8F3A;
-    }
-
-    .search-title {
-      color: white;
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      letter-spacing: 0.5px;
-    }
-
-    .search-form {
-      background: #E8E8E8;
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-group label {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #333;
-    }
-
-    .form-group input,
-    .form-group select {
-      height: 38px;
-      border: 1.5px solid #666;
-      border-radius: 6px;
-      padding: 0 12px;
-      font-size: 14px;
-      background: white;
-    }
-
-    .period-group {
-      display: flex;
-      gap: 8px;
-    }
-
-    .period-group select {
-      flex: 1;
-    }
-
-    .button-row {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-    }
-
-    .btn {
-      height: 42px;
-      padding: 0 28px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-      letter-spacing: 0.3px;
-    }
-
-    .btn-search {
-      background: linear-gradient(135deg, #7CC242 0%, #5DA838 100%);
-      color: white;
-    }
-
-    .btn-search:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(124, 194, 66, 0.4);
-    }
-
-    .btn-clear {
-      background: #FF5722;
-      color: white;
-    }
-
-    .btn-clear:hover {
-      background: #E64A19;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
-    }
-
-    /* RESULTS SECTION */
-    .results-section {
-      padding: 20px 24px;
-    }
-
-    .results-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .results-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #333;
-      letter-spacing: 0.3px;
-    }
-
-    .search-box {
-      position: relative;
-      width: 280px;
-    }
-
-    .search-box input {
-      width: 100%;
-      height: 38px;
-      padding: 0 40px 0 36px;
-      border: 1.5px solid #999;
-      border-radius: 20px;
-      font-size: 14px;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #666;
-    }
-
-    .mic-icon {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #666;
-      cursor: pointer;
-    }
-
-    /* TABLE */
-    .table-container {
-      overflow-x: auto;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-    }
-
-    thead {
-      background: #F5F5F5;
-    }
-
-    th {
-      padding: 12px;
-      text-align: left;
-      font-size: 13px;
-      font-weight: 600;
-      color: #333;
-      border-bottom: 2px solid #ddd;
-      white-space: nowrap;
-    }
-
-    td {
-      padding: 14px 12px;
-      font-size: 13px;
-      color: #333;
-      border-bottom: 1px solid #eee;
-    }
-
-    tbody tr:hover {
-      background: #f9f9f9;
-    }
-
-    /* STATUS BADGES */
-    .status-badge {
-      display: inline-block;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      text-align: center;
-      min-width: 120px;
-    }
-
-    .status-ativo {
-      background: #7CC242;
-      color: white;
-    }
-
-    .status-substituicao {
-      background: #FFD700;
-      color: #333;
-    }
-
-    .status-realocacao {
-      background: #FF9800;
-      color: white;
-    }
-
-    .status-inativo {
-      background: #FF5722;
-      color: white;
-    }
-
-    /* ACTION ICONS */
-    .actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .action-icon {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      transition: transform 0.2s;
-      color: #333;
-    }
-
-    .action-icon:hover {
-      transform: scale(1.2);
-      color: #5DA838;
-    }
-
-    /* PAGINATION */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      margin-top: 20px;
-      padding: 16px 0;
-    }
-
-    .page-btn {
-      width: 36px;
-      height: 36px;
-      border: 1px solid #999;
-      background: white;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
-    }
-
-    .page-btn:hover {
-      background: #f0f0f0;
-    }
-
-    .page-btn.active {
-      background: #333;
-      color: white;
-      border-color: #333;
-    }
-
-    .filter-icon {
-      cursor: pointer;
-      font-size: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-app">
+  <div class="page-shell">
+    <header class="topbar panel">
+      <div class="brand-lockup">
+        <div class="brand-mark">
+          <img src="SIREP.png" alt="Logo SIREP">
+        </div>
+        <div class="brand-copy">
+          <span>Sistema integrado</span>
+          <h1>Equipamentos</h1>
+        </div>
+      </div>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <img src="SIREP.png" alt="SIREP" class="logo-small">
-      <h1 class="header-title">EQUIPAMENTOS</h1>
-    </div>
-    <div class="header-icons">
-      <button class="icon-btn">🔔</button>
-      <button class="icon-btn">📤</button>
-      <button class="icon-btn">👤</button>
-    </div>
-  </div>
+      <div class="topbar-actions">
+        <button class="icon-pill" id="notifyBtn" type="button" aria-label="Abrir alertas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5"></path>
+            <path d="M10 17a2 2 0 0 0 4 0"></path>
+          </svg>
+        </button>
+        <button class="icon-pill" id="shareBtn" type="button" aria-label="Compartilhar painel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <path d="M8.6 13.5l6.8 4"></path>
+            <path d="M15.4 6.5l-6.8 4"></path>
+          </svg>
+        </button>
+        <a class="icon-pill" href="index.html" aria-label="Voltar ao acesso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </a>
+      </div>
+    </header>
 
-  <!-- MAIN CONTAINER -->
-  <div class="container">
-    
-    <!-- SEARCH SECTION -->
-    <div class="search-section">
-      <h2 class="search-title">BUSCAR EQUIPAMENTOS</h2>
-      
-      <div class="search-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Código do Equipamento</label>
-            <input type="text" id="filterCodigo">
+    <main>
+      <section class="compact-overview panel">
+        <div class="compact-overview-head">
+          <div>
+            <span class="eyebrow">Visão operacional</span>
+            <h2>Painel de equipamentos</h2>
+            <p class="muted-copy">Filtro, status e navegação concentrados em uma estrutura mais compacta e próxima do Figma.</p>
           </div>
-          <div class="form-group">
-            <label>Tipo de Equipamento</label>
-            <input type="text" id="filterTipo">
-          </div>
-          <div class="form-group">
-            <label>Número do projeto</label>
-            <input type="text" id="filterProjeto">
+          <div class="button-row">
+            <button id="refreshViewBtn" class="btn btn-primary" type="button">Atualizar</button>
+            <a href="informacoes.html?codigo=RL00001" class="btn btn-secondary">Abrir modelo</a>
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>Alimentador</label>
-            <input type="text" id="filterAlimentador">
+        <div class="stats-grid compact-stats">
+          <article class="stat-card panel">
+            <span class="stat-label">Total monitorado</span>
+            <strong class="stat-value" id="statTotal">0</strong>
+            <small class="stat-helper">Parque disponível no ambiente local.</small>
+          </article>
+          <article class="stat-card panel">
+            <span class="stat-label">Ativos</span>
+            <strong class="stat-value" id="statAtivos">0</strong>
+            <small class="stat-helper">Itens em operação normal.</small>
+          </article>
+          <article class="stat-card panel">
+            <span class="stat-label">Comunicação ativa</span>
+            <strong class="stat-value" id="statComunicacao">0</strong>
+            <small class="stat-helper">Telemetria respondendo.</small>
+          </article>
+          <article class="stat-card panel">
+            <span class="stat-label">Em atenção</span>
+            <strong class="stat-value" id="statAtencao">0</strong>
+            <small class="stat-helper">Substituição, realocação ou reserva.</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="filters-panel panel">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Filtros</span>
+            <h3>Buscar equipamentos</h3>
           </div>
-          <div class="form-group">
-            <label>Status do Equipamento</label>
-            <input type="text" id="filterStatus">
-          </div>
-          <div class="form-group">
-            <label>Período</label>
-            <div class="period-group">
-              <select id="filterMes">
-                <option>Sep</option>
-                <option>Jan</option>
-                <option>Fev</option>
-                <option>Mar</option>
-                <option>Abr</option>
-                <option>Mai</option>
-                <option>Jun</option>
-                <option>Jul</option>
-                <option>Ago</option>
-                <option>Out</option>
-                <option>Nov</option>
-                <option>Dez</option>
-              </select>
-              <select id="filterAno">
-                <option>2025</option>
-                <option>2024</option>
-                <option>2023</option>
-                <option>2022</option>
-              </select>
+          <p class="muted-copy">Use os filtros para refinar a lista sem sair da mesma tela.</p>
+        </div>
+
+        <form id="filterForm" class="field-grid">
+          <label class="field" for="filterCodigo">
+            <span>Código</span>
+            <input id="filterCodigo" type="text" placeholder="RL00001">
+          </label>
+
+          <label class="field" for="filterTipo">
+            <span>Tipo</span>
+            <select id="filterTipo"></select>
+          </label>
+
+          <label class="field" for="filterProjeto">
+            <span>Projeto</span>
+            <input id="filterProjeto" type="text" placeholder="B-240701">
+          </label>
+
+          <label class="field" for="filterAlimentador">
+            <span>Alimentador</span>
+            <input id="filterAlimentador" type="text" placeholder="EUN-01P2">
+          </label>
+
+          <label class="field" for="filterStatus">
+            <span>Status</span>
+            <select id="filterStatus">
+              <option value="">Todos</option>
+              <option value="ATIVO">Ativo</option>
+              <option value="SUBSTITUIÇÃO">Substituição</option>
+              <option value="REALOCAÇÃO">Realocação</option>
+              <option value="INATIVO">Inativo</option>
+            </select>
+          </label>
+
+          <label class="field" for="filterMes">
+            <span>Mês</span>
+            <select id="filterMes">
+              <option value="">Todos</option>
+              <option value="01">Jan</option>
+              <option value="02">Fev</option>
+              <option value="03">Mar</option>
+              <option value="04">Abr</option>
+              <option value="05">Mai</option>
+              <option value="06">Jun</option>
+              <option value="07">Jul</option>
+              <option value="08">Ago</option>
+              <option value="09">Set</option>
+              <option value="10">Out</option>
+              <option value="11">Nov</option>
+              <option value="12">Dez</option>
+            </select>
+          </label>
+
+          <label class="field" for="filterAno">
+            <span>Ano</span>
+            <select id="filterAno"></select>
+          </label>
+
+          <div class="field field-actions field-span-2">
+            <span>Comandos</span>
+            <div class="button-row">
+              <button class="btn btn-primary" type="submit">Aplicar</button>
+              <button class="btn btn-danger" type="button" id="clearFiltersBtn">Limpar</button>
             </div>
           </div>
+        </form>
+      </section>
+
+      <section class="table-panel panel">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Resultados</span>
+            <h3>Painel de ativos</h3>
+            <p id="resultSummary" class="muted-copy">Carregando equipamentos...</p>
+          </div>
+
+          <label class="field search-field" for="quickSearch">
+            <span>Busca rápida</span>
+            <div class="input-shell">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="M21 21l-4.35-4.35"></path>
+              </svg>
+              <input id="quickSearch" type="text" placeholder="Buscar por código, projeto ou responsável">
+            </div>
+          </label>
         </div>
 
-        <div class="button-row">
-          <button class="btn btn-search" onclick="buscarEquipamentos()">
-            🔍 BUSCAR
-          </button>
-          <button class="btn btn-clear" onclick="limparFiltros()">
-            🗑️ LIMPAR FILTRO
-          </button>
+        <div class="table-wrap">
+          <table class="table-shell">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Tipo</th>
+                <th>Alimentador</th>
+                <th>Projeto</th>
+                <th>Última atualização</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="equipmentTableBody"></tbody>
+          </table>
         </div>
-      </div>
-    </div>
 
-    <!-- RESULTS SECTION -->
-    <div class="results-section">
-      <div class="results-header">
-        <h2 class="results-title">RESULTADOS</h2>
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input type="text" placeholder="Search" id="quickSearch" onkeyup="buscaRapida()">
-          <span class="mic-icon">🎤</span>
+        <div class="pagination">
+          <p id="pageSummary" class="muted-copy">Página 1 de 1</p>
+          <div id="paginationList" class="page-list"></div>
         </div>
-      </div>
-
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Código do Equipamento</th>
-              <th>Tipo de Equipamento</th>
-              <th>Alimentador atual</th>
-              <th>Nº do Projeto</th>
-              <th>Status <span class="filter-icon">⚡</span></th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="tabelaEquipamentos">
-            <!-- Dados serão inseridos via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-
-      <!-- PAGINATION -->
-      <div class="pagination" id="paginacao">
-        <!-- Paginação será inserida via JavaScript -->
-      </div>
-    </div>
-
+      </section>
+    </main>
   </div>
 
+  <div class="modal-backdrop" id="editModalBackdrop">
+    <section class="modal-card panel" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow">Edição rápida</span>
+          <h3 id="editModalTitle">Atualizar equipamento</h3>
+        </div>
+        <button class="icon-pill" id="closeModalBtn" type="button" aria-label="Fechar edição">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <form id="editForm" class="field-grid modal-grid">
+        <input id="editCodigo" type="hidden">
+
+        <label class="field" for="editTipo">
+          <span>Tipo</span>
+          <input id="editTipo" type="text" required>
+        </label>
+
+        <label class="field" for="editStatus">
+          <span>Status</span>
+          <select id="editStatus" required>
+            <option value="ATIVO">Ativo</option>
+            <option value="SUBSTITUIÇÃO">Substituição</option>
+            <option value="REALOCAÇÃO">Realocação</option>
+            <option value="INATIVO">Inativo</option>
+          </select>
+        </label>
+
+        <label class="field" for="editAlimentador">
+          <span>Alimentador</span>
+          <input id="editAlimentador" type="text" required>
+        </label>
+
+        <label class="field" for="editProjeto">
+          <span>Projeto</span>
+          <input id="editProjeto" type="text" required>
+        </label>
+
+        <label class="field" for="editFabricante">
+          <span>Fabricante</span>
+          <input id="editFabricante" type="text" required>
+        </label>
+
+        <label class="field" for="editModelo">
+          <span>Modelo</span>
+          <input id="editModelo" type="text" required>
+        </label>
+
+        <label class="field" for="editClasse">
+          <span>Classe</span>
+          <input id="editClasse" type="text" required>
+        </label>
+
+        <label class="field" for="editResponsavel">
+          <span>Responsável</span>
+          <input id="editResponsavel" type="text" required>
+        </label>
+
+        <label class="field field-span-2" for="editLocalizacao">
+          <span>Localização</span>
+          <input id="editLocalizacao" type="text" required>
+        </label>
+
+        <label class="field field-span-2" for="editResumo">
+          <span>Resumo operacional</span>
+          <textarea id="editResumo" placeholder="Descreva o momento atual do equipamento"></textarea>
+        </label>
+
+        <div class="modal-actions field-span-2">
+          <button class="btn btn-secondary" id="cancelEditBtn" type="button">Cancelar</button>
+          <button class="btn btn-primary" type="submit">Salvar alterações</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
   <script>
-    // Dados iniciais de exemplo
-    const equipamentosIniciais = [
-      { codigo: 'RL00001', tipo: 'RELIGADOR', alimentador: 'EUN-01P2', projeto: 'B-000000', status: 'ATIVO' },
-      { codigo: 'CH00001', tipo: 'CHAVE SECCIONADORA', alimentador: 'EUN-01P2', projeto: 'B-000000', status: 'SUBSTITUIÇÃO' },
-      { codigo: 'TF00001', tipo: 'TRANSFORMADOR', alimentador: 'EUN-01P2', projeto: 'B-000000', status: 'REALOCAÇÃO' },
-      { codigo: 'TF00002', tipo: 'TRANSFORMADOR', alimentador: 'EUN-01P2', projeto: 'B-000000', status: 'INATIVO' },
-    ];
-
-    // Inicializar localStorage se vazio
-    if (!localStorage.getItem('equipamentos')) {
-      localStorage.setItem('equipamentos', JSON.stringify(equipamentosIniciais));
-    }
-
-    let equipamentosFiltrados = [];
-    let paginaAtual = 1;
-    const itensPorPagina = 7;
-
-    // Carregar equipamentos do localStorage
-    function carregarEquipamentos() {
-      const dados = localStorage.getItem('equipamentos');
-      return dados ? JSON.parse(dados) : [];
-    }
-
-    // Renderizar tabela
-    function renderizarTabela(equipamentos, pagina = 1) {
-      const tbody = document.getElementById('tabelaEquipamentos');
-      const inicio = (pagina - 1) * itensPorPagina;
-      const fim = inicio + itensPorPagina;
-      const equipamentosPagina = equipamentos.slice(inicio, fim);
-
-      tbody.innerHTML = '';
-
-      equipamentosPagina.forEach((eq, index) => {
-        const statusClass = `status-${eq.status.toLowerCase().replace('ç', 'c').replace('ã', 'a')}`;
-        
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${eq.codigo}</td>
-          <td>${eq.tipo}</td>
-          <td>${eq.alimentador}</td>
-          <td>${eq.projeto}</td>
-          <td><span class="status-badge ${statusClass}">${eq.status}</span></td>
-          <td>
-            <div class="actions">
-              <svg class="action-icon" onclick="verDetalhes('${eq.codigo}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 16v-4M12 8h.01"/>
-              </svg>
-              <svg class="action-icon" onclick="editarEquipamento('${eq.codigo}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-              </svg>
-              <svg class="action-icon" onclick="visualizarRelatorio('${eq.codigo}')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-              </svg>
-            </div>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      // Preencher linhas vazias
-      for (let i = equipamentosPagina.length; i < itensPorPagina; i++) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <div class="actions">
-              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 16v-4M12 8h.01"/>
-              </svg>
-              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-              </svg>
-              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-              </svg>
-            </div>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      }
-
-      renderizarPaginacao(equipamentos, pagina);
-    }
-
-    // Renderizar paginação
-    function renderizarPaginacao(equipamentos, paginaAtual) {
-      const totalPaginas = Math.ceil(equipamentos.length / itensPorPagina);
-      const paginacao = document.getElementById('paginacao');
-      
-      paginacao.innerHTML = '';
-
-      for (let i = 1; i <= Math.min(3, totalPaginas); i++) {
-        const btn = document.createElement('button');
-        btn.className = `page-btn ${i === paginaAtual ? 'active' : ''}`;
-        btn.textContent = i;
-        btn.onclick = () => mudarPagina(i);
-        paginacao.appendChild(btn);
-      }
-
-      if (totalPaginas > 5) {
-        paginacao.innerHTML += '<span>...</span>';
-        
-        for (let i = totalPaginas - 1; i <= totalPaginas; i++) {
-          const btn = document.createElement('button');
-          btn.className = `page-btn ${i === paginaAtual ? 'active' : ''}`;
-          btn.textContent = i;
-          btn.onclick = () => mudarPagina(i);
-          paginacao.appendChild(btn);
-        }
-      }
-    }
-
-    function mudarPagina(pagina) {
-      paginaAtual = pagina;
-      renderizarTabela(equipamentosFiltrados, pagina);
-    }
-
-    // Buscar equipamentos com filtros
-    function buscarEquipamentos() {
-      const equipamentos = carregarEquipamentos();
-      const codigo = document.getElementById('filterCodigo').value.toLowerCase();
-      const tipo = document.getElementById('filterTipo').value.toLowerCase();
-      const projeto = document.getElementById('filterProjeto').value.toLowerCase();
-      const alimentador = document.getElementById('filterAlimentador').value.toLowerCase();
-      const status = document.getElementById('filterStatus').value.toLowerCase();
-
-      equipamentosFiltrados = equipamentos.filter(eq => {
-        return (!codigo || eq.codigo.toLowerCase().includes(codigo)) &&
-               (!tipo || eq.tipo.toLowerCase().includes(tipo)) &&
-               (!projeto || eq.projeto.toLowerCase().includes(projeto)) &&
-               (!alimentador || eq.alimentador.toLowerCase().includes(alimentador)) &&
-               (!status || eq.status.toLowerCase().includes(status));
-      });
-
-      paginaAtual = 1;
-      renderizarTabela(equipamentosFiltrados, 1);
-    }
-
-    // Busca rápida
-    function buscaRapida() {
-      const termo = document.getElementById('quickSearch').value.toLowerCase();
-      const equipamentos = carregarEquipamentos();
-
-      equipamentosFiltrados = equipamentos.filter(eq => {
-        return eq.codigo.toLowerCase().includes(termo) ||
-               eq.tipo.toLowerCase().includes(termo) ||
-               eq.alimentador.toLowerCase().includes(termo) ||
-               eq.projeto.toLowerCase().includes(termo) ||
-               eq.status.toLowerCase().includes(termo);
-      });
-
-      paginaAtual = 1;
-      renderizarTabela(equipamentosFiltrados, 1);
-    }
-
-    // Limpar filtros
-    function limparFiltros() {
-      document.getElementById('filterCodigo').value = '';
-      document.getElementById('filterTipo').value = '';
-      document.getElementById('filterProjeto').value = '';
-      document.getElementById('filterAlimentador').value = '';
-      document.getElementById('filterStatus').value = '';
-      document.getElementById('quickSearch').value = '';
-      
-      equipamentosFiltrados = carregarEquipamentos();
-      paginaAtual = 1;
-      renderizarTabela(equipamentosFiltrados, 1);
-    }
-
-    // Funções de ação (placeholder)
-    function verDetalhes(codigo) {
-  window.location.href = `informacoes.html?codigo=${codigo}`;
-}
-
-    function editarEquipamento(codigo) {
-      alert(`Editar equipamento: ${codigo}`);
-    }
-
-    function visualizarRelatorio(codigo) {
-      alert(`Visualizar relatório de: ${codigo}`);
-    }
-
-    // Inicializar ao carregar a página
-    window.onload = () => {
-      equipamentosFiltrados = carregarEquipamentos();
-      renderizarTabela(equipamentosFiltrados, 1);
+    const state = {
+      equipamentos: [],
+      filtrados: [],
+      paginaAtual: 1,
+      itensPorPagina: 5
     };
-  </script>
 
+    const elements = {
+      filterForm: document.getElementById("filterForm"),
+      filterCodigo: document.getElementById("filterCodigo"),
+      filterTipo: document.getElementById("filterTipo"),
+      filterProjeto: document.getElementById("filterProjeto"),
+      filterAlimentador: document.getElementById("filterAlimentador"),
+      filterStatus: document.getElementById("filterStatus"),
+      filterMes: document.getElementById("filterMes"),
+      filterAno: document.getElementById("filterAno"),
+      clearFiltersBtn: document.getElementById("clearFiltersBtn"),
+      quickSearch: document.getElementById("quickSearch"),
+      resultSummary: document.getElementById("resultSummary"),
+      equipmentTableBody: document.getElementById("equipmentTableBody"),
+      paginationList: document.getElementById("paginationList"),
+      pageSummary: document.getElementById("pageSummary"),
+      statTotal: document.getElementById("statTotal"),
+      statAtivos: document.getElementById("statAtivos"),
+      statComunicacao: document.getElementById("statComunicacao"),
+      statAtencao: document.getElementById("statAtencao"),
+      editModalBackdrop: document.getElementById("editModalBackdrop"),
+      editForm: document.getElementById("editForm"),
+      editCodigo: document.getElementById("editCodigo"),
+      editTipo: document.getElementById("editTipo"),
+      editStatus: document.getElementById("editStatus"),
+      editAlimentador: document.getElementById("editAlimentador"),
+      editProjeto: document.getElementById("editProjeto"),
+      editFabricante: document.getElementById("editFabricante"),
+      editModelo: document.getElementById("editModelo"),
+      editClasse: document.getElementById("editClasse"),
+      editResponsavel: document.getElementById("editResponsavel"),
+      editLocalizacao: document.getElementById("editLocalizacao"),
+      editResumo: document.getElementById("editResumo"),
+      closeModalBtn: document.getElementById("closeModalBtn"),
+      cancelEditBtn: document.getElementById("cancelEditBtn"),
+      refreshViewBtn: document.getElementById("refreshViewBtn"),
+      notifyBtn: document.getElementById("notifyBtn"),
+      shareBtn: document.getElementById("shareBtn")
+    };
+
+    function normalizar(value) {
+      return SirepApp.stripAccents(String(value || "")).toLowerCase().trim();
+    }
+
+    function carregarDados() {
+      state.equipamentos = SirepApp.ensureDemoData();
+      state.filtrados = state.equipamentos.slice();
+    }
+
+    function preencherFiltros() {
+      const tipoAtual = elements.filterTipo.value;
+      const anoAtual = elements.filterAno.value;
+
+      const tipos = ["<option value=\"\">Todos</option>"].concat(
+        Array.from(new Set(state.equipamentos.map((item) => item.tipo)))
+          .sort((a, b) => a.localeCompare(b, "pt-BR"))
+          .map((tipo) => `<option value="${tipo}">${tipo}</option>`)
+      );
+
+      const anos = Array.from(
+        new Set(
+          state.equipamentos
+            .map((item) => String(new Date(item.ultimaAtualizacao).getFullYear()))
+            .filter((ano) => ano && ano !== "NaN")
+        )
+      ).sort((a, b) => b.localeCompare(a));
+
+      elements.filterTipo.innerHTML = tipos.join("");
+      elements.filterAno.innerHTML = ["<option value=\"\">Todos</option>"]
+        .concat(anos.map((ano) => `<option value="${ano}">${ano}</option>`))
+        .join("");
+
+      if (tipoAtual) {
+        elements.filterTipo.value = tipoAtual;
+      }
+
+      if (anoAtual) {
+        elements.filterAno.value = anoAtual;
+      }
+    }
+
+    function aplicarFiltros() {
+      const filtros = {
+        codigo: normalizar(elements.filterCodigo.value),
+        tipo: elements.filterTipo.value,
+        projeto: normalizar(elements.filterProjeto.value),
+        alimentador: normalizar(elements.filterAlimentador.value),
+        status: elements.filterStatus.value,
+        mes: elements.filterMes.value,
+        ano: elements.filterAno.value,
+        busca: normalizar(elements.quickSearch.value)
+      };
+
+      state.filtrados = state.equipamentos.filter((item) => {
+        const dataAtualizacao = new Date(item.ultimaAtualizacao);
+        const itemMes = String(dataAtualizacao.getMonth() + 1).padStart(2, "0");
+        const itemAno = String(dataAtualizacao.getFullYear());
+        const textoBusca = normalizar([
+          item.codigo,
+          item.tipo,
+          item.projeto,
+          item.alimentador,
+          item.fabricante,
+          item.responsavel,
+          item.status
+        ].join(" "));
+
+        return (!filtros.codigo || normalizar(item.codigo).includes(filtros.codigo)) &&
+          (!filtros.tipo || item.tipo === filtros.tipo) &&
+          (!filtros.projeto || normalizar(item.projeto).includes(filtros.projeto)) &&
+          (!filtros.alimentador || normalizar(item.alimentador).includes(filtros.alimentador)) &&
+          (!filtros.status || item.status === filtros.status) &&
+          (!filtros.mes || itemMes === filtros.mes) &&
+          (!filtros.ano || itemAno === filtros.ano) &&
+          (!filtros.busca || textoBusca.includes(filtros.busca));
+      });
+
+      state.paginaAtual = 1;
+      renderizar();
+    }
+
+    function renderizarIndicadores() {
+      const base = state.filtrados;
+      const ativos = base.filter((item) => item.status === "ATIVO").length;
+      const comunicacaoAtiva = base.filter((item) => item.comunicacao === "ATIVA").length;
+      const atencao = base.filter((item) => item.status !== "ATIVO").length;
+
+      elements.statTotal.textContent = String(base.length).padStart(2, "0");
+      elements.statAtivos.textContent = String(ativos).padStart(2, "0");
+      elements.statComunicacao.textContent = String(comunicacaoAtiva).padStart(2, "0");
+      elements.statAtencao.textContent = String(atencao).padStart(2, "0");
+    }
+
+    function renderizarTabela() {
+      const inicio = (state.paginaAtual - 1) * state.itensPorPagina;
+      const pagina = state.filtrados.slice(inicio, inicio + state.itensPorPagina);
+
+      if (!pagina.length) {
+        elements.equipmentTableBody.innerHTML = `
+          <tr>
+            <td colspan="7">
+              <div class="empty-state">
+                <strong>Nenhum equipamento encontrado</strong>
+                Ajuste os filtros ou limpe a busca para voltar a ver o parque completo.
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      elements.equipmentTableBody.innerHTML = pagina.map((item) => `
+        <tr>
+          <td>
+            <strong>${item.codigo}</strong>
+            <span>${item.fabricante}</span>
+          </td>
+          <td>${item.tipo}</td>
+          <td>${item.alimentador}</td>
+          <td>${item.projeto}</td>
+          <td>
+            <strong>${SirepApp.formatDate(item.ultimaAtualizacao)}</strong>
+            <span>${item.responsavel}</span>
+          </td>
+          <td>
+            <span class="status-chip status-${SirepApp.statusClass(item.status)}">${item.status}</span>
+          </td>
+          <td>
+            <div class="actions-cell">
+              <button class="action-btn" type="button" data-action="detalhes" data-codigo="${item.codigo}" aria-label="Ver detalhes">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 16v-4"></path>
+                  <path d="M12 8h.01"></path>
+                </svg>
+              </button>
+              <button class="action-btn" type="button" data-action="editar" data-codigo="${item.codigo}" aria-label="Editar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"></path>
+                </svg>
+              </button>
+              <button class="action-btn" type="button" data-action="relatorio" data-codigo="${item.codigo}" aria-label="Abrir relatório">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <path d="M14 2v6h6"></path>
+                  <path d="M16 13H8"></path>
+                  <path d="M16 17H8"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function renderizarPaginacao() {
+      const totalPaginas = Math.ceil(state.filtrados.length / state.itensPorPagina);
+
+      if (!totalPaginas) {
+        elements.paginationList.innerHTML = "";
+        elements.pageSummary.textContent = "Sem páginas disponíveis";
+        return;
+      }
+
+      const botoes = [];
+      botoes.push(`<button class="page-btn" type="button" data-page="${state.paginaAtual - 1}" ${state.paginaAtual === 1 ? "disabled" : ""}>Anterior</button>`);
+
+      for (let pagina = 1; pagina <= totalPaginas; pagina += 1) {
+        botoes.push(`<button class="page-btn ${pagina === state.paginaAtual ? "active" : ""}" type="button" data-page="${pagina}">${pagina}</button>`);
+      }
+
+      botoes.push(`<button class="page-btn" type="button" data-page="${state.paginaAtual + 1}" ${state.paginaAtual === totalPaginas ? "disabled" : ""}>Próxima</button>`);
+
+      elements.paginationList.innerHTML = botoes.join("");
+      elements.pageSummary.textContent = `Página ${state.paginaAtual} de ${totalPaginas}`;
+    }
+
+    function renderizarResumo() {
+      const quantidade = state.filtrados.length;
+      const plural = quantidade === 1 ? "equipamento encontrado" : "equipamentos encontrados";
+      elements.resultSummary.textContent = `${quantidade} ${plural} no recorte atual.`;
+    }
+
+    function renderizar() {
+      renderizarIndicadores();
+      renderizarResumo();
+      renderizarTabela();
+      renderizarPaginacao();
+    }
+
+    function limparFiltros() {
+      elements.filterForm.reset();
+      elements.quickSearch.value = "";
+      state.filtrados = state.equipamentos.slice();
+      state.paginaAtual = 1;
+      renderizar();
+    }
+
+    function abrirModal(codigo) {
+      const item = state.equipamentos.find((equipamento) => equipamento.codigo === codigo);
+
+      if (!item) {
+        SirepApp.showToast("Equipamento não encontrado para edição.", "error");
+        return;
+      }
+
+      elements.editCodigo.value = item.codigo;
+      elements.editTipo.value = item.tipo;
+      elements.editStatus.value = item.status;
+      elements.editAlimentador.value = item.alimentador;
+      elements.editProjeto.value = item.projeto;
+      elements.editFabricante.value = item.fabricante;
+      elements.editModelo.value = item.modelo;
+      elements.editClasse.value = item.classe;
+      elements.editResponsavel.value = item.responsavel;
+      elements.editLocalizacao.value = item.localizacao;
+      elements.editResumo.value = item.resumo;
+      elements.editModalBackdrop.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function fecharModal() {
+      elements.editModalBackdrop.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    function atualizarEquipamento(event) {
+      event.preventDefault();
+
+      const codigo = elements.editCodigo.value;
+
+      SirepApp.updateEquipamento(codigo, {
+        tipo: elements.editTipo.value.trim(),
+        status: elements.editStatus.value,
+        alimentador: elements.editAlimentador.value.trim(),
+        projeto: elements.editProjeto.value.trim(),
+        fabricante: elements.editFabricante.value.trim(),
+        modelo: elements.editModelo.value.trim(),
+        classe: elements.editClasse.value.trim(),
+        responsavel: elements.editResponsavel.value.trim(),
+        localizacao: elements.editLocalizacao.value.trim(),
+        resumo: elements.editResumo.value.trim()
+      });
+
+      carregarDados();
+      preencherFiltros();
+      aplicarFiltros();
+      fecharModal();
+      SirepApp.showToast("Equipamento atualizado com sucesso.", "success");
+    }
+
+    function lidarAcoesTabela(event) {
+      const button = event.target.closest("[data-action]");
+
+      if (!button) {
+        return;
+      }
+
+      const codigo = button.dataset.codigo;
+      const acao = button.dataset.action;
+
+      if (acao === "detalhes") {
+        window.location.href = `informacoes.html?codigo=${encodeURIComponent(codigo)}`;
+        return;
+      }
+
+      if (acao === "editar") {
+        abrirModal(codigo);
+        return;
+      }
+
+      if (acao === "relatorio") {
+        window.location.href = `informacoes.html?codigo=${encodeURIComponent(codigo)}&tab=historico`;
+      }
+    }
+
+    function lidarPaginacao(event) {
+      const button = event.target.closest("[data-page]");
+
+      if (!button || button.hasAttribute("disabled")) {
+        return;
+      }
+
+      state.paginaAtual = Number(button.dataset.page);
+      renderizarTabela();
+      renderizarPaginacao();
+    }
+
+    function inicializar() {
+      carregarDados();
+      preencherFiltros();
+      renderizar();
+
+      elements.filterForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        aplicarFiltros();
+      });
+
+      elements.clearFiltersBtn.addEventListener("click", limparFiltros);
+      elements.quickSearch.addEventListener("input", aplicarFiltros);
+      elements.equipmentTableBody.addEventListener("click", lidarAcoesTabela);
+      elements.paginationList.addEventListener("click", lidarPaginacao);
+      elements.editForm.addEventListener("submit", atualizarEquipamento);
+      elements.closeModalBtn.addEventListener("click", fecharModal);
+      elements.cancelEditBtn.addEventListener("click", fecharModal);
+      elements.editModalBackdrop.addEventListener("click", function (event) {
+        if (event.target === elements.editModalBackdrop) {
+          fecharModal();
+        }
+      });
+
+      elements.refreshViewBtn.addEventListener("click", function () {
+        carregarDados();
+        preencherFiltros();
+        limparFiltros();
+        SirepApp.showToast("Painel atualizado com a base local mais recente.", "success");
+      });
+
+      elements.notifyBtn.addEventListener("click", function () {
+        SirepApp.showToast("Alertas concentrados na lista de equipamentos em atenção.", "info");
+      });
+
+      elements.shareBtn.addEventListener("click", function () {
+        SirepApp.showToast("Compartilhamento ainda é ilustrativo nesta demo local.", "info");
+      });
+    }
+
+    inicializar();
+  </script>
 </body>
 </html>
